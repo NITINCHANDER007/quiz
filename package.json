@@ -1,0 +1,12 @@
+{
+  "name": "wayground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kahoot-style real-time multiplayer quiz web application",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "seed": "npm run seed --prefix server"
+  }
+}
