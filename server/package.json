@@ -1,5 +1,5 @@
 {
-  "name": "wayground-server",
+  "name": "quizpulse-server",
   "version": "1.0.0",
   "description": "Production-ready real-time multiplayer Kahoot-style quiz backend with Express and Socket.IO",
   "main": "src/index.js",
@@ -9,7 +9,7 @@
     "seed": "node src/seed/seed.js"
   },
   "keywords": ["quiz", "socket.io", "mern", "kahoot-clone", "realtime"],
-  "author": "Wayground Team",
+  "author": "QuizPulse Team",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

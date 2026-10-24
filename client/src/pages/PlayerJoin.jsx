@@ -18,7 +18,7 @@ export default function PlayerJoin() {
   // Check if player has an existing session in localStorage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('wayground_player_session');
+      const saved = localStorage.getItem('quizpulse_player_session') || localStorage.getItem('wayground_player_session');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.roomCode && parsed.playerId) {
@@ -88,7 +88,7 @@ export default function PlayerJoin() {
         if (res && res.success) {
           // Save player session to localStorage for reconnect support
           localStorage.setItem(
-            'wayground_player_session',
+            'quizpulse_player_session',
             JSON.stringify({
               roomCode: cleanCode,
               playerId: res.playerId,

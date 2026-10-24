@@ -1,4 +1,4 @@
-# ⚡ Wayground - Production-Ready Real-Time Multiplayer Quiz Web App
+# ⚡ QuizPulse - Production-Ready Real-Time Multiplayer Quiz Web App
 
 A modern, high-energy, Kahoot-style real-time multiplayer quiz web application built with the **MERN Stack (MongoDB, Express, React, Node.js) + Socket.IO**.
 

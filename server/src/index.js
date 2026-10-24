@@ -49,7 +49,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'Wayground Quiz Server',
+    service: 'QuizPulse Server',
     time: new Date().toISOString(),
   });
 });
@@ -87,7 +87,7 @@ setupSocketHandlers(io);
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log(`===============================================`);
-    console.log(`🚀 Wayground Quiz Server running on port ${PORT}`);
+    console.log(`🚀 QuizPulse Server running on port ${PORT}`);
     console.log(`📡 Socket.IO server ready for real-time traffic`);
     console.log(`🌐 Allowed Client URL: ${CLIENT_URL}`);
     console.log(`===============================================`);

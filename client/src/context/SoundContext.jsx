@@ -5,13 +5,13 @@ const SoundContext = createContext(null);
 
 export function SoundProvider({ children }) {
   const [soundEnabled, setSoundEnabled] = useState(() => {
-    const saved = localStorage.getItem('wayground_sound_enabled');
+    const saved = localStorage.getItem('quizpulse_sound_enabled') || localStorage.getItem('wayground_sound_enabled');
     return saved !== null ? saved === 'true' : true;
   });
 
   useEffect(() => {
     soundManager.setMuted(!soundEnabled);
-    localStorage.setItem('wayground_sound_enabled', String(soundEnabled));
+    localStorage.setItem('quizpulse_sound_enabled', String(soundEnabled));
   }, [soundEnabled]);
 
   const toggleSound = () => {

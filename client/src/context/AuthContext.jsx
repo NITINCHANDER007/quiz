@@ -4,7 +4,7 @@ import { apiLogin, apiVerify } from '../utils/api';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem('wayground_admin_token') || null);
+  const [token, setToken] = useState(() => localStorage.getItem('quizpulse_admin_token') || localStorage.getItem('wayground_admin_token') || null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   const login = async (password) => {
     const res = await apiLogin(password);
     if (res.success && res.token) {
-      localStorage.setItem('wayground_admin_token', res.token);
+      localStorage.setItem('quizpulse_admin_token', res.token);
       setToken(res.token);
       setIsAuthenticated(true);
       return { success: true };
@@ -43,6 +43,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    localStorage.removeItem('quizpulse_admin_token');
     localStorage.removeItem('wayground_admin_token');
     setToken(null);
     setIsAuthenticated(false);

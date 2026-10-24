@@ -23,7 +23,7 @@ export default function Navbar() {
           </div>
           <div>
             <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-              WAYGROUND
+              QUIZPULSE
             </span>
             <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-purple/20 text-brand-pink border border-brand-pink/30">
               Live Quiz

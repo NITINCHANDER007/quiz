@@ -15,7 +15,7 @@ export function SocketProvider({ children }) {
   useEffect(() => {
     // Initialize Socket instance
     const newSocket = io(SERVER_URL, {
-      auth: { token: token || localStorage.getItem('wayground_admin_token') },
+      auth: { token: token || localStorage.getItem('quizpulse_admin_token') || localStorage.getItem('wayground_admin_token') },
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 10,
       reconnectionDelay: 1000,

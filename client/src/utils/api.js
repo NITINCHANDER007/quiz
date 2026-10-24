@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
 
 function getAuthHeaders() {
-  const token = localStorage.getItem('wayground_admin_token');
+  const token = localStorage.getItem('quizpulse_admin_token') || localStorage.getItem('wayground_admin_token');
   return {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),

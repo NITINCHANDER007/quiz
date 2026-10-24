@@ -14,7 +14,7 @@ export default function PlayerLobby() {
 
   const [player, setPlayer] = useState(() => {
     try {
-      const saved = localStorage.getItem('wayground_player_session');
+      const saved = localStorage.getItem('quizpulse_player_session') || localStorage.getItem('wayground_player_session');
       return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;

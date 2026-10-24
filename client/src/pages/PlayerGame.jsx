@@ -25,7 +25,7 @@ export default function PlayerGame() {
 
   const [player, setPlayer] = useState(() => {
     try {
-      const saved = localStorage.getItem('wayground_player_session');
+      const saved = localStorage.getItem('quizpulse_player_session') || localStorage.getItem('wayground_player_session');
       return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;
@@ -324,7 +324,7 @@ export default function PlayerGame() {
 
       {/* Bottom Footer */}
       <div className="text-center text-xs text-gray-500 py-2">
-        Wayground Real-Time Multiplayer Quiz
+        QuizPulse Real-Time Multiplayer Quiz
       </div>
     </div>
   );
