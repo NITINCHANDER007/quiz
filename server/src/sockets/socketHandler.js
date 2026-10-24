@@ -437,16 +437,19 @@ function setupSocketHandlers(io) {
         // Broadcast live answered count to admin and all players
         const answeredCount = qAnswers.size;
         const totalPlayers = room.players.size;
-        io.to(cleanCode).emit('question:answerCount', { answeredCount, totalPlayers });
-
-        // Count connected players
         const connectedPlayersCount = Array.from(room.players.values()).filter(p => p.connected).length;
+        const allAnswered = answeredCount >= connectedPlayersCount && connectedPlayersCount > 0;
 
-        // Check if all connected players have answered -> trigger immediate reveal!
-        if (answeredCount >= connectedPlayersCount && connectedPlayersCount > 0) {
-          console.log(`[All Answered] Room: ${cleanCode} Q#${room.currentQuestionIndex + 1} (${answeredCount}/${connectedPlayersCount}) - Revealing now`);
-          revealQuestionResults(io, room);
-        }
+        io.to(cleanCode).emit('question:answerCount', {
+          answeredCount,
+          totalPlayers,
+          connectedPlayersCount,
+          allAnswered,
+        });
+
+        // NOTE: We do NOT trigger immediate reveal here.
+        // We wait until the 20-second server timer runs its full course, so all players
+        // see their answer locked and the countdown timer finishes before revealing correct/incorrect.
       } catch (err) {
         console.error('[player:answer] Error:', err);
         callback({ success: false, message: err.message });
@@ -471,18 +474,32 @@ function setupSocketHandlers(io) {
 
         io.to(roomCode).emit('room:playersUpdate', getPlayersList(room));
 
-        // If in active question, check if all remaining connected players have answered
-        if (room.status === 'active' && room.currentQuestionIndex >= 0) {
-          const qAnswers = room.answersByQuestion.get(room.currentQuestionIndex);
-          if (qAnswers) {
-            const connectedPlayers = Array.from(room.players.values()).filter(p => p.connected);
-            if (connectedPlayers.length > 0 && qAnswers.size >= connectedPlayers.length) {
-              revealQuestionResults(io, room);
-            }
-          }
-        }
       } else if (socket.id === room.adminSocketId) {
         console.log(`[Host Disconnected] Room: ${roomCode}`);
+      }
+    });
+
+    // -------------------------------------------------------------
+    // 9. ADMIN: REVEAL EARLY (Optional Host Override)
+    // -------------------------------------------------------------
+    socket.on('admin:revealEarly', (payload, callback = () => {}) => {
+      try {
+        const { roomCode } = payload || {};
+        const cleanCode = (roomCode || socket.roomCode || '').toUpperCase().trim();
+        const room = getRoomState(cleanCode);
+
+        if (!room) return callback({ success: false, message: 'Room not found' });
+        if (room.adminSocketId !== socket.id && !socket.isAdmin) {
+          return callback({ success: false, message: 'Only the host can reveal early' });
+        }
+
+        if (room.status === 'active') {
+          console.log(`[Host Early Reveal] Room: ${cleanCode} Q#${room.currentQuestionIndex + 1}`);
+          revealQuestionResults(io, room);
+          callback({ success: true });
+        }
+      } catch (err) {
+        callback({ success: false, message: err.message });
       }
     });
   });

@@ -34,6 +34,7 @@ export default function HostGame() {
   const [correctIndex, setCorrectIndex] = useState(null);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
+  const [allAnswered, setAllAnswered] = useState(false);
 
   // Countdown interval
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function HostGame() {
       setCorrectIndex(payload.correctIndex);
       setSecondsLeft(payload.duration || 20);
       setAnsweredCount(0);
+      setAllAnswered(false);
       setGameState('active');
       setActionLoading(false);
     };
@@ -65,6 +67,7 @@ export default function HostGame() {
     const handleAnswerCount = (payload) => {
       setAnsweredCount(payload.answeredCount || 0);
       setTotalPlayers(payload.totalPlayers || 0);
+      setAllAnswered(Boolean(payload.allAnswered));
     };
 
     // Question reveal update with full leaderboard and answer distribution
@@ -120,6 +123,10 @@ export default function HostGame() {
     });
   };
 
+  const handleRevealEarly = () => {
+    socket.emit('admin:revealEarly', { roomCode: cleanCode });
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-[90vh] flex flex-col justify-between">
       {/* Top Banner */}
@@ -133,12 +140,21 @@ export default function HostGame() {
           </span>
         </div>
 
-        {/* Live Answered Count */}
+        {/* Live Answered Count & Skip Timer action */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white/10 text-white font-extrabold text-xs sm:text-sm">
             <Users className="w-4 h-4 text-emerald-400" />
             <span>{answeredCount} / {totalPlayers || '0'} Answered</span>
           </div>
+          {gameState === 'active' && allAnswered && (
+            <button
+              onClick={handleRevealEarly}
+              className="px-3.5 py-1.5 rounded-xl bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border border-yellow-400/40 text-xs font-bold transition-all animate-pulse"
+              title="All players have answered. Click to reveal answers immediately, or wait for the 20s timer to expire."
+            >
+              Skip Remaining Time & Reveal
+            </button>
+          )}
         </div>
       </div>
 

@@ -218,10 +218,10 @@ export default function PlayerGame() {
                 </div>
                 <div className="text-left">
                   <span className="text-sm font-black text-white block">
-                    Answer locked! Waiting for others...
+                    Answer locked! Waiting for timer to end...
                   </span>
                   <span className="text-xs text-gray-400">
-                    {answeredCount} of {totalPlayers} players answered
+                    Results will reveal when countdown finishes ({answeredCount} of {totalPlayers} answered)
                   </span>
                 </div>
               </div>
