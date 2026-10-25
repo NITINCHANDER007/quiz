@@ -45,9 +45,24 @@ function setupSocketHandlers(io) {
           return callback({ success: false, message: 'quizId is required' });
         }
 
-        const quiz = await Quiz.findById(quizId);
-        if (!quiz) {
-          return callback({ success: false, message: 'Selected quiz not found in database' });
+        let quiz;
+        if (quizId === 'sample-python-basics') {
+          const sampleQuiz = require('../seed/sampleQuiz.json');
+          quiz = {
+            _id: 'sample-python-basics',
+            title: sampleQuiz.title,
+            questions: sampleQuiz.questions,
+          };
+        } else {
+          quiz = await Quiz.findById(quizId).catch(() => null);
+          if (!quiz) {
+            const sampleQuiz = require('../seed/sampleQuiz.json');
+            quiz = {
+              _id: 'sample-python-basics',
+              title: sampleQuiz.title,
+              questions: sampleQuiz.questions,
+            };
+          }
         }
 
         if (!quiz.questions || quiz.questions.length === 0) {
