@@ -32,14 +32,18 @@ export function AuthProvider({ children }) {
   }, [token]);
 
   const login = async (password) => {
-    const res = await apiLogin(password);
-    if (res.success && res.token) {
-      localStorage.setItem('quizpulse_admin_token', res.token);
-      setToken(res.token);
-      setIsAuthenticated(true);
-      return { success: true };
+    try {
+      const res = await apiLogin(password);
+      if (res && res.success && res.token) {
+        localStorage.setItem('quizpulse_admin_token', res.token);
+        setToken(res.token);
+        setIsAuthenticated(true);
+        return { success: true };
+      }
+      return { success: false, message: res?.message || 'Login failed' };
+    } catch (err) {
+      return { success: false, message: 'Server communication error: ' + (err.message || 'offline') };
     }
-    return { success: false, message: res.message || 'Login failed' };
   };
 
   const logout = () => {

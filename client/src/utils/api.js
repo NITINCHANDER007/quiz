@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+const API_URL = (import.meta.env.VITE_SERVER_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 function getAuthHeaders() {
   const token = localStorage.getItem('quizpulse_admin_token') || localStorage.getItem('wayground_admin_token');
@@ -8,81 +8,104 @@ function getAuthHeaders() {
   };
 }
 
+async function request(endpoint, options = {}) {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+    const res = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      return {
+        success: false,
+        message: data.message || `Server error (${res.status})`,
+      };
+    }
+    return data;
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      return {
+        success: false,
+        message: 'Request timed out. The backend server might still be starting up.',
+      };
+    }
+    return {
+      success: false,
+      message: `Cannot connect to backend server. Ensure backend is deployed and running.`,
+    };
+  }
+}
+
 export async function apiLogin(password) {
-  const res = await fetch(`${API_URL}/api/auth/login`, {
+  return request('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password }),
   });
-  return res.json();
 }
 
 export async function apiVerify() {
-  const res = await fetch(`${API_URL}/api/auth/verify`, {
+  return request('/api/auth/verify', {
     headers: getAuthHeaders(),
   });
-  return res.json();
 }
 
 export async function apiGetQuizzes() {
-  const res = await fetch(`${API_URL}/api/quizzes`, {
+  return request('/api/quizzes', {
     headers: getAuthHeaders(),
   });
-  return res.json();
 }
 
 export async function apiGetQuiz(id) {
-  const res = await fetch(`${API_URL}/api/quizzes/${id}`, {
+  return request(`/api/quizzes/${id}`, {
     headers: getAuthHeaders(),
   });
-  return res.json();
 }
 
 export async function apiCreateQuiz(data) {
-  const res = await fetch(`${API_URL}/api/quizzes`, {
+  return request('/api/quizzes', {
     method: 'POST',
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
-  return res.json();
 }
 
 export async function apiUpdateQuiz(id, data) {
-  const res = await fetch(`${API_URL}/api/quizzes/${id}`, {
+  return request(`/api/quizzes/${id}`, {
     method: 'PUT',
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
-  return res.json();
 }
 
 export async function apiDeleteQuiz(id) {
-  const res = await fetch(`${API_URL}/api/quizzes/${id}`, {
+  return request(`/api/quizzes/${id}`, {
     method: 'DELETE',
     headers: getAuthHeaders(),
   });
-  return res.json();
 }
 
 export async function apiBulkImport(questions) {
-  const res = await fetch(`${API_URL}/api/quizzes/bulk-import`, {
+  return request('/api/quizzes/bulk-import', {
     method: 'POST',
     headers: getAuthHeaders(),
     body: JSON.stringify({ questions }),
   });
-  return res.json();
 }
 
 export async function apiCheckRoom(code) {
-  const res = await fetch(`${API_URL}/api/games/check/${code}`);
-  return res.json();
+  return request(`/api/games/check/${code}`);
 }
 
 export async function apiGetGameHistory() {
-  const res = await fetch(`${API_URL}/api/games/history`, {
+  return request('/api/games/history', {
     headers: getAuthHeaders(),
   });
-  return res.json();
 }
 
 export function getExportCSVUrl(code) {

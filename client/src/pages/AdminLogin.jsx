@@ -20,13 +20,17 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
 
-    const res = await login(password.trim());
-    setLoading(false);
-
-    if (res.success) {
-      navigate('/admin');
-    } else {
-      setError(res.message || 'Incorrect password. Please try again.');
+    try {
+      const res = await login(password.trim());
+      if (res.success) {
+        navigate('/admin');
+      } else {
+        setError(res.message || 'Incorrect password. Please try again.');
+      }
+    } catch (err) {
+      setError(err.message || 'Connection to server failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
