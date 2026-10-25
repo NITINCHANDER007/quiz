@@ -206,13 +206,6 @@ export default function PlayerJoin() {
               <ArrowRight className="w-5 h-5" />
             </button>
           </form>
-
-          <div className="mt-6 pt-5 border-t border-white/10 text-xs text-gray-400 text-center">
-            Are you hosting this quiz?{' '}
-            <Link to="/admin/login" className="text-brand-pink hover:underline font-bold">
-              Sign in as Host
-            </Link>
-          </div>
         </div>
       </div>
     </div>
