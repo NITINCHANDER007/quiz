@@ -85,7 +85,7 @@ setupSocketHandlers(io);
 
 // Start server after DB connection
 connectDB().then(() => {
-  server.listen(PORT, () => {
+  server.listen(PORT, '0.0.0.0', () => {
     console.log(`===============================================`);
     console.log(`🚀 QuizPulse Server running on port ${PORT}`);
     console.log(`📡 Socket.IO server ready for real-time traffic`);
