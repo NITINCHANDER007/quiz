@@ -1,111 +1,66 @@
 {
-  "title": "Ultimate World & Science Trivia (20 Questions)",
-  "description": "A high-energy 20-question Kahoot-style quiz covering world geography, science, tech, history, and pop culture.",
+  "title": "Python Basics Quiz (10 Questions)",
+  "description": "Test your foundational Python knowledge covering syntax, basic data types, functions, operators, and built-in methods.",
   "questions": [
     {
-      "text": "What is the capital city of Australia?",
-      "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-      "correctIndex": 2
-    },
-    {
-      "text": "Which element has the chemical symbol 'Au'?",
-      "options": ["Silver", "Gold", "Argon", "Aluminum"],
+      "text": "What is the correct file extension for Python source files?",
+      "options": [".pt", ".py", ".pyt", ".python"],
       "correctIndex": 1
     },
     {
-      "text": "Who is credited with inventing the World Wide Web in 1989?",
-      "options": ["Tim Berners-Lee", "Bill Gates", "Steve Jobs", "Alan Turing"],
-      "correctIndex": 0
-    },
-    {
-      "text": "What is the largest organ in the human body?",
-      "options": ["Liver", "Skin", "Brain", "Lungs"],
-      "correctIndex": 1
-    },
-    {
-      "text": "Which planet in our solar system has the most moons?",
-      "options": ["Jupiter", "Mars", "Saturn", "Neptune"],
+      "text": "Which keyword is used to define a function in Python?",
+      "options": ["function", "define", "def", "func"],
       "correctIndex": 2
     },
     {
-      "text": "In computer science, what does 'HTTP' stand for?",
+      "text": "How do you output 'Hello World' to the console in Python 3?",
       "options": [
-        "HyperText Transfer Protocol",
-        "High Tech Transfer Process",
-        "Hyper Terminal Transit Page",
-        "Home Text Transmission Path"
+        "echo 'Hello World'",
+        "print('Hello World')",
+        "console.log('Hello World')",
+        "System.out.println('Hello World')"
       ],
-      "correctIndex": 0
-    },
-    {
-      "text": "How many valves does a standard human heart have?",
-      "options": ["Two", "Three", "Four", "Six"],
-      "correctIndex": 2
-    },
-    {
-      "text": "Which country is home to the ancient monument Machu Picchu?",
-      "options": ["Chile", "Brazil", "Peru", "Colombia"],
-      "correctIndex": 2
-    },
-    {
-      "text": "What programming language was created by Brendan Eich in just 10 days in 1995?",
-      "options": ["Python", "Java", "JavaScript", "Ruby"],
-      "correctIndex": 2
-    },
-    {
-      "text": "What is the hardest natural substance known on Earth?",
-      "options": ["Titanium", "Diamond", "Graphene", "Quartz"],
       "correctIndex": 1
     },
     {
-      "text": "Which ocean is the largest and deepest on Earth?",
-      "options": ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
+      "text": "Which character is used to write a single-line comment in Python?",
+      "options": ["//", "/*", "#", "--"],
       "correctIndex": 2
     },
     {
-      "text": "What is the speed of light in a vacuum (approximate)?",
-      "options": ["150,000 km/s", "300,000 km/s", "450,000 km/s", "600,000 km/s"],
-      "correctIndex": 1
-    },
-    {
-      "text": "Which company originally created the Android mobile operating system before Google acquired it?",
-      "options": ["Android Inc.", "Motorola", "Nokia", "Palm"],
-      "correctIndex": 0
-    },
-    {
-      "text": "In what year did the Apollo 11 mission land the first humans on the Moon?",
-      "options": ["1965", "1967", "1969", "1972"],
-      "correctIndex": 2
-    },
-    {
-      "text": "What is the smallest unit of memory in computing?",
-      "options": ["Byte", "Nibble", "Bit", "Kilobyte"],
-      "correctIndex": 2
-    },
-    {
-      "text": "Which gas makes up the majority (about 78%) of Earth's atmosphere?",
-      "options": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
-      "correctIndex": 1
-    },
-    {
-      "text": "Who painted the famous masterpiece 'The Starry Night'?",
-      "options": ["Pablo Picasso", "Claude Monet", "Vincent van Gogh", "Salvador Dalí"],
-      "correctIndex": 2
-    },
-    {
-      "text": "What is the boiling point of water in Fahrenheit at sea level?",
-      "options": ["100°F", "180°F", "200°F", "212°F"],
+      "text": "Which of the following built-in data types is immutable in Python?",
+      "options": ["list", "dict", "set", "tuple"],
       "correctIndex": 3
     },
     {
-      "text": "Which desert is the largest hot desert in the world?",
-      "options": ["Gobi", "Sahara", "Kalahari", "Arabian"],
+      "text": "What does len(['apple', 'banana', 'cherry']) return?",
+      "options": ["2", "3", "4", "15"],
       "correctIndex": 1
     },
     {
-      "text": "What is the currency of Japan?",
-      "options": ["Yuan", "Won", "Yen", "Baht"],
+      "text": "What is the output of type(3.14) in Python?",
+      "options": [
+        "<class 'int'>",
+        "<class 'float'>",
+        "<class 'double'>",
+        "<class 'number'>"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "text": "Which operator is used to calculate power (exponentiation) in Python?",
+      "options": ["^", "**", "//", "%%"],
+      "correctIndex": 1
+    },
+    {
+      "text": "Which method is used to add an item to the end of a list?",
+      "options": [".push()", ".add()", ".append()", ".insert()"],
       "correctIndex": 2
+    },
+    {
+      "text": "What does the expression bool(0) evaluate to in Python?",
+      "options": ["True", "False", "None", "SyntaxError"],
+      "correctIndex": 1
     }
   ]
 }
